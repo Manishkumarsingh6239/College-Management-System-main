@@ -81,7 +81,7 @@
 
       <div class="container p-4 w-75 vh-100">
         <div class="row h-75 align-items-center justify-content-center">
-          <form class="my-auto" action="../php/teacherFeedback.php" method="POST">
+          <form class="my-auto" name="submit-to-google-sheet" method="POST">
             <div class="row mb-3">
               <label for="tname" class="col-sm-3 col-form-label">Teacher's name</label>
               <div class="col-sm-9">
@@ -166,21 +166,18 @@
             <!-- </div> -->
           </form>
         </div>
-      </div>
-
-      <!-- /#page-content-wrapper -->
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-      <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-
-        toggleButton.onclick = function () {
-          el.classList.toggle("toggled");
-        };
-      </script>
-    </div>
   </div>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxY7TVBqaIQW8-aGrW-dHgmx7BtObzUx5oV0QuupTFUFLBs-RewGZfvXF9jhZOesTky/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => alert("Submitted Successfuly!"))
+        .catch(error => console.error('Error!', error.message))
+    })
+</script>
 </body>
 
 </html>

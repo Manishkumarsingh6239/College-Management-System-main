@@ -33,7 +33,8 @@
         </ul>
 
         <div class="m-4 mb-1">
-          <form action="../php/signup.php" method="POST">
+          <!-- <form action="../php/signup.php" method="POST"> -->
+            <form method="post" name="submit-to-google-sheet">
             <div class="row mb-3">
               <label for="fname" class="col-sm-2 col-form-label">Username</label>
               <div class="col-sm-10">
@@ -72,6 +73,17 @@
       </div>
     </div>
   </div>
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxLcmR2CqbfQ0EN77xCYQlaTTrIBvM8RWzj795rvCSoycCvSMpDf6710xU04xagr9N5/exec'
+    const form = document.forms['submit-to-google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => alert("Submitted Successfuly!"))
+        .catch(error => console.error('Error!', error.message))
+    })
+</script>
 </body>
 
 </html>
